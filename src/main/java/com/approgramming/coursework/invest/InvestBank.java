@@ -1,6 +1,5 @@
 package com.approgramming.coursework.invest;
 
-import com.approgramming.coursework.attachment.Attachment;
 import com.approgramming.coursework.authorization.Authorization;
 import com.approgramming.coursework.data.Data;
 import com.approgramming.coursework.offer.Offer;
@@ -14,8 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class InvestBank {
     Stage investWindow;
     Label comment, bankName;
@@ -25,13 +22,14 @@ public class InvestBank {
         investWindow = window;
         investWindow.setTitle("InvestBank");
         comment = new Label("");
+        comment.setId("error");
 
         TableColumn<Offer, Double> percentsColumn = new TableColumn<>("Year Percents");
-        percentsColumn.setMinWidth(100);
+        percentsColumn.setMinWidth(150);
         percentsColumn.setCellValueFactory(new PropertyValueFactory<>("percents"));
 
         TableColumn<Offer, Integer> monthColumn = new TableColumn<>("Month Count");
-        monthColumn.setMinWidth(100);
+        monthColumn.setMinWidth(150);
         monthColumn.setCellValueFactory(new PropertyValueFactory<>("monthCount"));
 
         percentsInput = new TextField();
@@ -51,7 +49,8 @@ public class InvestBank {
         editBox.setPadding(new Insets(10,10,10,10));
         editBox.setSpacing(20);
         editBox.setAlignment(Pos.BOTTOM_CENTER);
-        editBox.getChildren().addAll(percentsInput, monthCountInput, addButton, deleteButton, comment);
+        editBox.getChildren().addAll(percentsInput, monthCountInput, addButton,
+                deleteButton, bankName, comment);
 
         table = new TableView<>();
         fillOffersTable(table);
@@ -60,8 +59,12 @@ public class InvestBank {
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(table, editBox);
-
-        investWindow.setScene(new Scene(vbox));
+        Scene scene  = new Scene(vbox, 450, 900);
+        scene.getStylesheets().add("MainStyle.css");
+        investWindow.setScene(scene);
+        window.setMinHeight(450);
+        window.setMaxHeight(450);
+        window.setMinWidth(900);
         investWindow.show();
     }
 
@@ -73,8 +76,8 @@ public class InvestBank {
 
     private void addButtonClicked() {
         Offer offer = new Offer();
-        Integer monthCount;
-        Double percents;
+        int monthCount;
+        double percents;
         try{
             monthCount = Integer.parseInt(monthCountInput.getText());
             percents = Double.parseDouble(percentsInput.getText());

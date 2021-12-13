@@ -1,11 +1,11 @@
 package com.approgramming.coursework.authorization;
 
 import com.approgramming.coursework.attachment.Attachment;
-import com.approgramming.coursework.customer.Customer;
 import com.approgramming.coursework.data.Data;
 import com.approgramming.coursework.invest.Invest;
 import com.approgramming.coursework.validation.Validation;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,13 +22,17 @@ public class SignUp {
         singUpWindow = window;
         singUpWindow.setTitle("Registration");
         Label comment = new Label("");
+        comment.setId("error");
+        comment.setAlignment(Pos.CENTER);
 
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(50, 50, 50, 50));
+        grid.setAlignment(Pos.CENTER);
+        grid.setPadding(new Insets(50, 100, 50, 50));
         grid.setVgap(30);
         grid.setHgap(10);
 
         Label AuthText = new Label("Registration");
+        AuthText.setId("h");
         GridPane.setConstraints(AuthText, 1, 0);
 
         Label nameLabel = new Label("Name : ");
@@ -82,7 +86,7 @@ public class SignUp {
         });
 
         HBox AuthButtons = new HBox();
-        AuthButtons.setSpacing(20);
+        AuthButtons.setSpacing(25);
         AuthButtons.getChildren().addAll(loginButton, registerButton);
         GridPane.setConstraints(AuthButtons, 1, 6);
 
@@ -91,18 +95,22 @@ public class SignUp {
         grid.getChildren().addAll(AuthText, emailLabel, email, passwordLabel,
                 password, nameLabel, name, surnameLabel, surname, moneyLabel,
                 money, AuthButtons, comment);
-        Scene scene = new Scene(grid, 400, 500);
+        Scene scene = new Scene(grid, 400, 550);
+        scene.getStylesheets().add("MainStyle.css");
         singUpWindow.setScene(scene);
+        singUpWindow.setMinWidth(550);
+        singUpWindow.setMinHeight(400);
         singUpWindow.show();
     }
 
     private boolean register(String email, String password, String name, String surname, String moneyCount, Label comment) {
         double money;
-        try{
-            money = Double.parseDouble(moneyCount);
-        }catch (Exception e) {
-            e.printStackTrace();
-            comment.setText("Invalid Money Field");
+        if(!Validation.name(name)) {
+            comment.setText("Invalid Name Field");
+            return false;
+        }
+        if(!Validation.surname(surname)) {
+            comment.setText("Invalid Surname Field");
             return false;
         }
         if(!Validation.email(email)) {
@@ -113,12 +121,11 @@ public class SignUp {
             comment.setText("Invalid Password Field");
             return false;
         }
-        if(!Validation.name(name)) {
-            comment.setText("Invalid Name Field");
-            return false;
-        }
-        if(!Validation.surname(surname)) {
-            comment.setText("Invalid Surname Field");
+        try{
+            money = Double.parseDouble(moneyCount);
+        }catch (Exception e) {
+            e.printStackTrace();
+            comment.setText("Invalid Money Field");
             return false;
         }
         Data data = new Data();

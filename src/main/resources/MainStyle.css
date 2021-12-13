@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color: #585858;
+}
+
+.text-field {
+    -fx-border-radius: 5;
+    -fx-background-color: #B8B8B8;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #726b73;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15;
+}
+
+.button {
+    -fx-border-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-size: 13;
+}
+.button:pressed {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+}
+
+#h {
+    -fx-font-size: 25;
+}
+
+#error {
+    -fx-font-size: 15;
+    -fx-text-fill: red;
+}
+
+.check-box {
+    -fx-font-size: 15;
+    -fx-text-fill: #ffffff;
+}

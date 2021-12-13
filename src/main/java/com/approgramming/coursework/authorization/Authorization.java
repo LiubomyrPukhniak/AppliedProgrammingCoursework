@@ -7,6 +7,7 @@ import com.approgramming.coursework.invest.Invest;
 import com.approgramming.coursework.invest.InvestBank;
 import com.approgramming.coursework.validation.Validation;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,13 +26,17 @@ public class Authorization {
         authWindow = window;
         authWindow.setTitle("Authorization");
         Label comment = new Label("");
+        comment.setId("error");
 
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(50, 50, 50, 50));
+        grid.setAlignment(Pos.CENTER);
+        grid.setPadding(new Insets(100, 100, 100, 50));
         grid.setVgap(30);
         grid.setHgap(10);
 
         Label AuthText = new Label("Authorization");
+        AuthText.setId("h");
+        grid.setAlignment(Pos.CENTER);
         GridPane.setConstraints(AuthText, 1, 0);
 
         Label emailLabel = new Label("Email : ");
@@ -66,7 +71,8 @@ public class Authorization {
         });
 
         HBox AuthButtons = new HBox();
-        AuthButtons.setSpacing(20);
+        AuthButtons.setSpacing(25);
+        grid.setAlignment(Pos.CENTER);
         AuthButtons.getChildren().addAll(loginButton, registerButton);
         GridPane.setConstraints(AuthButtons, 1, 3);
 
@@ -74,8 +80,11 @@ public class Authorization {
         GridPane.setConstraints(comment, 1, 4);
 
         grid.getChildren().addAll(AuthText, emailLabel, email, passwordLabel, password, AuthButtons, comment);
-        Scene scene = new Scene(grid, 400, 500);
+        Scene scene = new Scene(grid, 400, 400);
+        scene.getStylesheets().add("MainStyle.css");
         authWindow.setScene(scene);
+        authWindow.setMinWidth(400);
+        authWindow.setMinHeight(400);
         authWindow.show();
     }
 

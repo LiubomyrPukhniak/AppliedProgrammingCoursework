@@ -30,6 +30,7 @@ public class Invest {
         investWindow = window;
         investWindow.setTitle("Invest");
         comment = new Label("");
+        comment.setId("error");
         if(!readyAttachments.isEmpty()) {
             Data data = new Data();
             if(data.completeAttachments(readyAttachments))
@@ -37,23 +38,23 @@ public class Invest {
         }
 
         TableColumn<Attachment, Double> moneyColumn = new TableColumn<>("Money Amount");
-        moneyColumn.setMinWidth(100);
+        moneyColumn.setMinWidth(200);
         moneyColumn.setCellValueFactory(new PropertyValueFactory<>("money"));
 
         TableColumn<Attachment, Double> percentsColumn = new TableColumn<>("Year Percents");
-        percentsColumn.setMinWidth(100);
+        percentsColumn.setMinWidth(150);
         percentsColumn.setCellValueFactory(new PropertyValueFactory<>("percents"));
 
         TableColumn<Attachment, Integer> monthColumn = new TableColumn<>("Month Count");
-        monthColumn.setMinWidth(100);
+        monthColumn.setMinWidth(150);
         monthColumn.setCellValueFactory(new PropertyValueFactory<>("monthCount"));
 
         TableColumn<Attachment, String> dateOfEndColumn = new TableColumn<>("End Date");
-        dateOfEndColumn.setMinWidth(200);
+        dateOfEndColumn.setMinWidth(100);
         dateOfEndColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfEnd"));
 
         TableColumn<Attachment, Boolean> isOutOfScheduleColumn = new TableColumn<>("Out of Schedule");
-        isOutOfScheduleColumn.setMinWidth(100);
+        isOutOfScheduleColumn.setMinWidth(200);
         isOutOfScheduleColumn.setCellValueFactory(new PropertyValueFactory<>("outOfSchedule"));
 
         TableColumn<Attachment, String> bankNameColumn = new TableColumn<>("Bank Name");
@@ -92,8 +93,12 @@ public class Invest {
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(table, editBox);
-
-        window.setScene(new Scene(vbox));
+        Scene scene = new Scene(vbox, 1300, 450);
+        scene.getStylesheets().add("MainStyle.css");
+        window.setScene(scene);
+        window.setMinHeight(450);
+        window.setMaxHeight(450);
+        window.setMinWidth(1300);
         window.show();
     }
 
